@@ -1,9 +1,13 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import CreateVote from './components/CreateVote'
+import CreateVote from './pages/CreateVote'
 import Header from '@/components/Header'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import theme from './theme'
+import Home from './pages/Home'
+import VoteDetail from './pages/VoteDetail'
+import ParticipateVote from './pages/ParticipateVote'
+import VoteResults from './pages/VoteResult'
 
 const App: React.FC = () => {
   return (
@@ -13,7 +17,11 @@ const App: React.FC = () => {
         <div className="App">
           <Header />
           <Routes>
-            <Route path="/" element={<CreateVote />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/create-vote" element={<CreateVote />} />
+            <Route path="/vote/:id" element={<VoteDetail />} />
+            <Route path="/participate" element={<ParticipateVote />} />
+            <Route path="/results/:id" element={<VoteResults />} />
           </Routes>
         </div>
       </BrowserRouter>

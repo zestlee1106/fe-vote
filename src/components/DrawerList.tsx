@@ -14,8 +14,16 @@ const DrawerList: React.FC<DrawerListProps> = ({ toggleDrawer }) => {
     <Box
       sx={{ width: { xs: 200, sm: 250 } }}
       role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
+      onClick={(event) => {
+        // 마우스 클릭 이벤트
+        toggleDrawer(false)(event)
+      }}
+      onKeyDown={(event) => {
+        // 키보드 이벤트
+        if (event.key === 'Escape' || event.key === 'Enter') {
+          toggleDrawer(false)(event)
+        }
+      }}
     >
       <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text) => (
