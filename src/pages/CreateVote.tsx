@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Box, Card, CardContent, TextField, Button, Typography } from '@mui/material'
+import { Box, Card, CardContent, TextField, Button, Typography, IconButton } from '@mui/material'
+import { Delete } from '@mui/icons-material'
 
 const CreateVote: React.FC = () => {
   const [title, setTitle] = useState('')
@@ -35,16 +36,20 @@ const CreateVote: React.FC = () => {
             margin="normal"
           />
           {options.map((option, index) => (
-            <TextField
-              key={index}
-              label={`옵션 ${index + 1}`}
-              value={option}
-              onChange={(e) => handleOptionChange(index, e.target.value)}
-              fullWidth
-              margin="normal"
-            />
+            <Box sx={{ display: 'flex' }} key={index}>
+              <TextField
+                label={`옵션 ${index + 1}`}
+                value={option}
+                onChange={(e) => handleOptionChange(index, e.target.value)}
+                fullWidth
+                margin="normal"
+              />
+              <IconButton aria-label="delete" size="small">
+                <Delete fontSize="small" />
+              </IconButton>
+            </Box>
           ))}
-          <Button onClick={addOption} variant="outlined" sx={{ mt: 2 }}>
+          <Button onClick={addOption} variant="outlined" sx={{ mt: 2, mr: 2 }}>
             옵션 추가
           </Button>
           <Button onClick={handleSubmit} variant="contained" color="primary" sx={{ mt: 2 }}>
