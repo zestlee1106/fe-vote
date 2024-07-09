@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Typography, List, ListItem, ListItemText } from '@mui/material'
+import { Box, Card, CardContent, Typography, List, ListItem, ListItemText } from '@mui/material'
 
 const VoteResults: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -13,18 +13,22 @@ const VoteResults: React.FC = () => {
   ]
 
   return (
-    <div>
-      <Typography variant="h4" gutterBottom>
-        투표 결과 {id}
-      </Typography>
-      <List>
-        {results.map((result, index) => (
-          <ListItem key={index}>
-            <ListItemText primary={`${result.option}: ${result.votes} votes`} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
+    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+      <Card sx={{ maxWidth: 600, width: '100%' }}>
+        <CardContent>
+          <Typography variant="h4" gutterBottom>
+            투표 결과 {id}
+          </Typography>
+          <List>
+            {results.map((result, index) => (
+              <ListItem key={index}>
+                <ListItemText primary={`${result.option}: ${result.votes} votes`} />
+              </ListItem>
+            ))}
+          </List>
+        </CardContent>
+      </Card>
+    </Box>
   )
 }
 

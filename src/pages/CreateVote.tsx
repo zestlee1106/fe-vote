@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TextField, Button, Typography, Box } from '@mui/material'
+import { Box, Card, CardContent, TextField, Button, Typography } from '@mui/material'
 
 const CreateVote: React.FC = () => {
   const [title, setTitle] = useState('')
@@ -21,27 +21,37 @@ const CreateVote: React.FC = () => {
   }
 
   return (
-    <Box>
-      <Typography variant="h4" gutterBottom>
-        새 투표 생성
-      </Typography>
-      <TextField label="투표 제목" value={title} onChange={(e) => setTitle(e.target.value)} fullWidth margin="normal" />
-      {options.map((option, index) => (
-        <TextField
-          key={index}
-          label={`옵션 ${index + 1}`}
-          value={option}
-          onChange={(e) => handleOptionChange(index, e.target.value)}
-          fullWidth
-          margin="normal"
-        />
-      ))}
-      <Button onClick={addOption} variant="outlined">
-        옵션 추가
-      </Button>
-      <Button onClick={handleSubmit} variant="contained" color="primary">
-        생성
-      </Button>
+    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+      <Card sx={{ maxWidth: 600, width: '100%' }}>
+        <CardContent>
+          <Typography variant="h4" gutterBottom>
+            새 투표 생성
+          </Typography>
+          <TextField
+            label="투표 제목"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            fullWidth
+            margin="normal"
+          />
+          {options.map((option, index) => (
+            <TextField
+              key={index}
+              label={`옵션 ${index + 1}`}
+              value={option}
+              onChange={(e) => handleOptionChange(index, e.target.value)}
+              fullWidth
+              margin="normal"
+            />
+          ))}
+          <Button onClick={addOption} variant="outlined" sx={{ mt: 2 }}>
+            옵션 추가
+          </Button>
+          <Button onClick={handleSubmit} variant="contained" color="primary" sx={{ mt: 2 }}>
+            생성
+          </Button>
+        </CardContent>
+      </Card>
     </Box>
   )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, ListItem, ListItemText, Typography } from '@mui/material'
+import { Box, Card, CardContent, Typography, List, ListItem, ListItemText } from '@mui/material'
 import { Link } from 'react-router-dom'
 
 const Home: React.FC = () => {
@@ -10,18 +10,22 @@ const Home: React.FC = () => {
   ]
 
   return (
-    <div>
-      <Typography variant="h4" gutterBottom>
-        투표 목록
-      </Typography>
-      <List>
-        {votes.map((vote) => (
-          <ListItem button component={Link} to={`/vote/${vote.id}`} key={vote.id}>
-            <ListItemText primary={vote.title} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
+    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+      <Card sx={{ maxWidth: 600, width: '100%' }}>
+        <CardContent>
+          <Typography variant="h4" gutterBottom>
+            투표 목록
+          </Typography>
+          <List>
+            {votes.map((vote) => (
+              <ListItem button component={Link} to={`/vote/${vote.id}`} key={vote.id}>
+                <ListItemText primary={vote.title} />
+              </ListItem>
+            ))}
+          </List>
+        </CardContent>
+      </Card>
+    </Box>
   )
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Typography, Radio, RadioGroup, FormControlLabel, Button } from '@mui/material'
+import { Box, Card, CardContent, Typography, Radio, RadioGroup, FormControlLabel, Button } from '@mui/material'
 
 const VoteDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -12,19 +12,23 @@ const VoteDetail: React.FC = () => {
   }
 
   return (
-    <div>
-      <Typography variant="h4" gutterBottom>
-        투표 {id}
-      </Typography>
-      <RadioGroup value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
-        <FormControlLabel value="option1" control={<Radio />} label="Option 1" />
-        <FormControlLabel value="option2" control={<Radio />} label="Option 2" />
-        {/* 추가 옵션 */}
-      </RadioGroup>
-      <Button onClick={handleVote} variant="contained" color="primary">
-        투표하기
-      </Button>
-    </div>
+    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+      <Card sx={{ maxWidth: 600, width: '100%' }}>
+        <CardContent>
+          <Typography variant="h4" gutterBottom>
+            투표 {id}
+          </Typography>
+          <RadioGroup value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
+            <FormControlLabel value="option1" control={<Radio />} label="Option 1" />
+            <FormControlLabel value="option2" control={<Radio />} label="Option 2" />
+            {/* 추가 옵션 */}
+          </RadioGroup>
+          <Button onClick={handleVote} variant="contained" color="primary" sx={{ mt: 2 }}>
+            투표하기
+          </Button>
+        </CardContent>
+      </Card>
+    </Box>
   )
 }
 
