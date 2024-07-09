@@ -1,17 +1,23 @@
 import React from 'react'
-import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import CreateVote from './components/CreateVote'
+import Header from '@/components/Header'
+import { CssBaseline, ThemeProvider } from '@mui/material'
+import theme from './theme'
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<CreateVote />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <BrowserRouter>
+        <div className="App">
+          <Header />
+          <Routes>
+            <Route path="/" element={<CreateVote />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }
 
