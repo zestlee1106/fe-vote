@@ -6,16 +6,12 @@ import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import Drawer from '@mui/material/Drawer'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import { useTheme } from '@mui/material/styles'
 import DrawerList from './DrawerList' // 새로 만든 컴포넌트 경로에 맞게 수정
 
-const Header = () => {
+const Header: React.FC = () => {
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
-  const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+  const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent | React.TouchEvent) => {
     if (
       event.type === 'keydown' &&
       ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')
@@ -44,12 +40,7 @@ const Header = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer
-        anchor="left"
-        open={drawerOpen}
-        onClose={toggleDrawer(false)}
-        variant={isMobile ? 'temporary' : 'persistent'}
-      >
+      <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)} variant="temporary">
         <DrawerList toggleDrawer={toggleDrawer} />
       </Drawer>
     </Box>
