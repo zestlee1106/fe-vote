@@ -10,7 +10,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 import DrawerList from './DrawerList' // 새로 만든 컴포넌트 경로에 맞게 수정
 
-export default function ButtonAppBar() {
+const Header = () => {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
@@ -55,3 +55,5 @@ export default function ButtonAppBar() {
     </Box>
   )
 }
+
+export default Header
