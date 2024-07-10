@@ -1,48 +1,33 @@
 import React, { useState } from 'react'
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
-import MenuIcon from '@mui/icons-material/Menu'
-import Drawer from '@mui/material/Drawer'
-import DrawerList from './DrawerList' // 새로 만든 컴포넌트 경로에 맞게 수정
+import { AppBar, Box, Toolbar, Tabs, Tab } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 const Header: React.FC = () => {
-  const [drawerOpen, setDrawerOpen] = useState(false)
+  const navigate = useNavigate()
+  const [value, setValue] = useState(0)
 
-  const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent | React.TouchEvent) => {
-    if (
-      event.type === 'keydown' &&
-      ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')
-    ) {
-      return
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue)
+    switch (newValue) {
+      case 0:
+        navigate('/')
+        break
+      case 1:
+        navigate('/create-vote')
+        break
     }
-    setDrawerOpen(open)
   }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={toggleDrawer(true)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            투표
-          </Typography>
+        <Toolbar sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Tabs value={value} onChange={handleChange} aria-label="nav tabs">
+            <Tab label="투표 목록" />
+            <Tab label="투표 생성" />
+          </Tabs>
         </Toolbar>
       </AppBar>
-      <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)} variant="temporary">
-        <DrawerList toggleDrawer={toggleDrawer} />
-      </Drawer>
     </Box>
   )
 }
