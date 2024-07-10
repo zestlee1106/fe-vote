@@ -26,7 +26,10 @@ const Home: React.FC = () => {
                 key={vote.id}
                 sx={{
                   textAlign: 'center',
-                  borderBottom: index !== votes.length - 1 ? '1px solid #ccc' : 'none',
+                  border: '1px solid',
+                  borderColor: 'primary.main',
+                  borderRadius: 3,
+                  marginBottom: index !== votes.length - 1 ? 1 : 0,
                 }}
               >
                 <ListItemText primary={vote.title} />

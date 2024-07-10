@@ -4,13 +4,14 @@ const theme = createTheme({
   palette: {
     mode: 'dark', // 다크 테마로 설정
     primary: {
-      main: '#90caf9',
+      main: '#ECCEAE', //
+      light: '#131842',
     },
     secondary: {
-      main: '#f48fb1',
+      main: '#E68369',
     },
     background: {
-      default: '#121212',
+      default: '#FBF6E2',
       paper: '#424242',
     },
     text: {

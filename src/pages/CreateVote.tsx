@@ -58,10 +58,13 @@ const CreateVote: React.FC = () => {
                   width: 36,
                   height: 36,
                   borderRadius: '50%',
-                  backgroundColor: 'primary.main',
-                  color: 'white',
+                  border: '1px solid',
+                  borderColor: 'primary.main',
+                  color: 'primary.main',
+                  backgroundColor: 'transparent',
                   '&:hover': {
-                    backgroundColor: 'primary.dark',
+                    borderColor: 'primary.dark',
+                    color: 'primary.dark',
                   },
                 }}
               >
