@@ -14,7 +14,7 @@ const VoteResults: React.FC = () => {
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-      <Card sx={{ maxWidth: 600, width: '100%' }}>
+      <Card sx={{ maxWidth: 600, width: '100%' }} variant="outlined">
         <CardContent>
           <Typography variant="h4" gutterBottom>
             투표 결과 {id}

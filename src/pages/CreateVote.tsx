@@ -16,6 +16,11 @@ const CreateVote: React.FC = () => {
     setOptions([...options, ''])
   }
 
+  const deleteOption = (index: number) => {
+    const newOptions = options.filter((_, i) => i !== index)
+    setOptions(newOptions)
+  }
+
   const handleSubmit = () => {
     // 투표 생성 로직 추가
     console.log('투표 생성:', { title, options })
@@ -23,7 +28,7 @@ const CreateVote: React.FC = () => {
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-      <Card sx={{ maxWidth: 600, width: '100%' }}>
+      <Card sx={{ maxWidth: 600, width: '100%' }} variant="outlined">
         <CardContent>
           <Typography variant="h4" gutterBottom>
             새 투표 생성
@@ -36,7 +41,7 @@ const CreateVote: React.FC = () => {
             margin="normal"
           />
           {options.map((option, index) => (
-            <Box sx={{ display: 'flex' }} key={index}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }} key={index}>
               <TextField
                 label={`옵션 ${index + 1}`}
                 value={option}
@@ -44,7 +49,22 @@ const CreateVote: React.FC = () => {
                 fullWidth
                 margin="normal"
               />
-              <IconButton aria-label="delete" size="small">
+              <IconButton
+                aria-label="delete"
+                size="small"
+                onClick={() => deleteOption(index)}
+                sx={{
+                  ml: 1,
+                  width: 36,
+                  height: 36,
+                  borderRadius: '50%',
+                  backgroundColor: 'primary.main',
+                  color: 'white',
+                  '&:hover': {
+                    backgroundColor: 'primary.dark',
+                  },
+                }}
+              >
                 <Delete fontSize="small" />
               </IconButton>
             </Box>
