@@ -6,6 +6,7 @@ const Home: React.FC = () => {
   const votes = [
     { id: 1, title: 'Vote 1' },
     { id: 2, title: 'Vote 2' },
+    { id: 2, title: 'Vote 3' },
     // 추가 투표 데이터
   ]
 
@@ -17,8 +18,17 @@ const Home: React.FC = () => {
             투표 목록
           </Typography>
           <List>
-            {votes.map((vote) => (
-              <ListItem button component={Link} to={`/vote/${vote.id}`} key={vote.id} sx={{ textAlign: 'center' }}>
+            {votes.map((vote, index) => (
+              <ListItem
+                button
+                component={Link}
+                to={`/vote/${vote.id}`}
+                key={vote.id}
+                sx={{
+                  textAlign: 'center',
+                  borderBottom: index !== votes.length - 1 ? '1px solid #ccc' : 'none',
+                }}
+              >
                 <ListItemText primary={vote.title} />
               </ListItem>
             ))}
