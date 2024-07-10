@@ -18,11 +18,13 @@ const VoteDetail: React.FC = () => {
           <Typography variant="h4" gutterBottom>
             투표 {id}
           </Typography>
-          <RadioGroup value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
-            <FormControlLabel value="option1" control={<Radio />} label="Option 1" />
-            <FormControlLabel value="option2" control={<Radio />} label="Option 2" />
-            {/* 추가 옵션 */}
-          </RadioGroup>
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <RadioGroup value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
+              <FormControlLabel value="option1" control={<Radio />} label="Option 1" />
+              <FormControlLabel value="option2" control={<Radio />} label="Option 2" />
+              {/* 추가 옵션 */}
+            </RadioGroup>
+          </Box>
           <Button onClick={handleVote} variant="contained" color="primary" sx={{ mt: 2 }}>
             투표하기
           </Button>
