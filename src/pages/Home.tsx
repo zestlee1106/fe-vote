@@ -12,13 +12,13 @@ const Home: React.FC = () => {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
       <Card sx={{ maxWidth: 600, width: '100%' }} variant="outlined">
-        <CardContent>
+        <CardContent sx={{ textAlign: 'center' }}>
           <Typography variant="h4" gutterBottom>
             투표 목록
           </Typography>
           <List>
             {votes.map((vote) => (
-              <ListItem button component={Link} to={`/vote/${vote.id}`} key={vote.id}>
+              <ListItem button component={Link} to={`/vote/${vote.id}`} key={vote.id} sx={{ textAlign: 'center' }}>
                 <ListItemText primary={vote.title} />
               </ListItem>
             ))}
