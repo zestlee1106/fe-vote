@@ -1,8 +1,11 @@
 const path = require('path')
 module.exports = {
   webpack: {
-    alias: {
+    alias: { 
       '@': path.resolve(__dirname, 'src'),
     },
   },
+  devServer: {
+    port: 1997
+  }
 }

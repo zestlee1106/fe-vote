@@ -6,7 +6,7 @@ const Home: React.FC = () => {
   const votes = [
     { id: 1, title: 'Vote 1' },
     { id: 2, title: 'Vote 2' },
-    { id: 2, title: 'Vote 3' },
+    { id: 3, title: 'Vote 3' },
     // 추가 투표 데이터
   ]
 
