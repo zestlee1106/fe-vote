@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Card, CardContent, Typography, List, ListItem, ListItemText } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { getAllVotes } from '@/api/votes'
+import { Vote } from '@/types/votes'
 
 const Home: React.FC = () => {
-  const votes = [
-    { id: 1, title: 'Vote 1' },
-    { id: 2, title: 'Vote 2' },
-    { id: 3, title: 'Vote 3' },
-    // 추가 투표 데이터
-  ]
+  const [votes, setVotes] = useState<Vote[]>([])
+  const fetchVotes = async () => {
+    const data = await getAllVotes()
+    setVotes(data)
+  }
+
+  useEffect(() => {
+    fetchVotes()
+  }, [])
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
@@ -22,8 +27,8 @@ const Home: React.FC = () => {
               <ListItem
                 button
                 component={Link}
-                to={`/vote/${vote.id}`}
-                key={vote.id}
+                to={`/vote/${vote._id}`}
+                key={vote._id}
                 sx={{
                   textAlign: 'center',
                   border: '1px solid',
