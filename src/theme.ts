@@ -1,10 +1,24 @@
 import { createTheme } from '@mui/material/styles'
 
+declare module '@mui/material/styles' {
+  interface Theme {
+    custom: {
+      backgroundGradient: string
+    }
+  }
+
+  interface ThemeOptions {
+    custom?: {
+      backgroundGradient?: string
+    }
+  }
+}
+
 const theme = createTheme({
   palette: {
     mode: 'dark', // 다크 테마로 설정
     primary: {
-      main: '#ECCEAE', //
+      main: '#ECCEAE',
       light: '#131842',
     },
     secondary: {
@@ -18,6 +32,9 @@ const theme = createTheme({
       primary: '#ffffff',
       secondary: '#b0bec5',
     },
+  },
+  custom: {
+    backgroundGradient: 'linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09))',
   },
 })
 
