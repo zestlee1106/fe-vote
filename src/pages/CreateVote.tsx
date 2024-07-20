@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Box, Card, CardContent, TextField, Button, Typography, IconButton } from '@mui/material'
 import { Delete } from '@mui/icons-material'
 import CustomDatePicker from '@/components/CustomDatePicker'
+import theme from '@/theme'
 
 const CreateVote: React.FC = () => {
   const [title, setTitle] = useState('')
@@ -22,9 +23,19 @@ const CreateVote: React.FC = () => {
     setOptions(newOptions)
   }
 
+  const [startDate, setStartDate] = useState<Date | null>(null)
+  const [endDate, setEndDate] = useState<Date | null>(null)
+
+  const handleEndDateChange = (date: Date) => {
+    setEndDate(date)
+  }
+  const handleStartDateChange = (date: Date) => {
+    setStartDate(date)
+  }
+
   const handleSubmit = () => {
     // 투표 생성 로직 추가
-    console.log('투표 생성:', { title, options })
+    console.log('투표 생성:', { title, options, startDate, endDate })
   }
 
   return (
@@ -81,10 +92,13 @@ const CreateVote: React.FC = () => {
               gap: '15px',
               width: '100%',
               justifyContent: 'space-between',
+              paddingTop: '16px',
+              color: theme.palette.primary.main,
             }}
           >
-            <CustomDatePicker />
-            <CustomDatePicker />
+            <CustomDatePicker placeholder="투표 시작 날짜" onChange={handleStartDateChange} />
+            ~
+            <CustomDatePicker placeholder="투표 끝나는 날짜" onChange={handleEndDateChange} />
           </Box>
           <Button onClick={addOption} variant="outlined" sx={{ mt: 2, mr: 2 }}>
             옵션 추가

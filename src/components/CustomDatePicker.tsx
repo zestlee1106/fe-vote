@@ -1,9 +1,12 @@
 import theme from '@/theme'
 import { Box, TextField } from '@mui/material'
 import { styled } from '@mui/system'
-import React from 'react'
-import DatePicker from 'react-datepicker'
+import React, { useState } from 'react'
+import DatePicker, { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import { ko } from 'date-fns/locale/ko'
+
+registerLocale('ko', ko)
 
 const Wrapper = styled(Box)({
   '&': {
@@ -58,6 +61,11 @@ const Wrapper = styled(Box)({
         color: theme.palette.text.secondary,
       },
 
+      '.react-datepicker__day--selected': {
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.background.paper,
+      },
+
       '.react-datepicker__day--keyboard-selected': {
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.background.paper,
@@ -93,6 +101,11 @@ const Wrapper = styled(Box)({
           color: `${theme.palette.primary.main} !important`,
         },
       },
+
+      '.react-datepicker__time-list-item--selected': {
+        backgroundColor: `${theme.palette.primary.main} !important`,
+        color: `${theme.palette.background.paper} !important`,
+      },
     },
 
     '.react-datepicker-popper .react-datepicker__triangle': {
@@ -102,19 +115,38 @@ const Wrapper = styled(Box)({
   },
 })
 
-const CustomDatePicker: React.FC = () => {
+interface DatePickerProps {
+  placeholder?: string
+  onChange: (date: Date) => void
+}
+
+const CustomDatePicker = ({ placeholder, onChange }: DatePickerProps) => {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  const handleDateChange = (date: Date | null) => {
+    if (!date) {
+      return
+    }
+    setSelectedDate(date)
+    onChange(date)
+  }
+
   return (
     <Wrapper>
       <DatePicker
+        selected={selectedDate}
+        dateFormat="yyyy년 MM월 dd일 HH:mm"
         showTimeSelect
+        locale="ko"
         customInput={
           <TextField
             fullWidth
+            label={placeholder}
             inputProps={{
               autoComplete: 'off',
             }}
           />
         }
+        onChange={handleDateChange}
       />
     </Wrapper>
   )
