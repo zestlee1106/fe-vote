@@ -23,8 +23,8 @@ const CreateVote: React.FC = () => {
     setOptions(newOptions)
   }
 
-  const [startDate, setStartDate] = useState<Date | null>(null)
-  const [endDate, setEndDate] = useState<Date | null>(null)
+  const [startDate, setStartDate] = useState<Date>()
+  const [endDate, setEndDate] = useState<Date>()
 
   const handleEndDateChange = (date: Date) => {
     setEndDate(date)
@@ -98,7 +98,12 @@ const CreateVote: React.FC = () => {
           >
             <CustomDatePicker placeholder="투표 시작 날짜" onChange={handleStartDateChange} />
             ~
-            <CustomDatePicker placeholder="투표 끝나는 날짜" onChange={handleEndDateChange} />
+            <CustomDatePicker
+              placeholder="투표 끝나는 날짜"
+              onChange={handleEndDateChange}
+              startDate={startDate}
+              disabled={!startDate}
+            />
           </Box>
           <Button onClick={addOption} variant="outlined" sx={{ mt: 2, mr: 2 }}>
             옵션 추가
