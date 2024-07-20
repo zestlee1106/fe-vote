@@ -3,9 +3,12 @@ import { Box, Card, CardContent, TextField, Button, Typography, IconButton } fro
 import { Delete } from '@mui/icons-material'
 import CustomDatePicker from '@/components/CustomDatePicker'
 import theme from '@/theme'
+import { createVote } from '@/api/votes'
+import { useNavigate } from 'react-router-dom'
 
 const CreateVote: React.FC = () => {
   const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
   const [options, setOptions] = useState(['', ''])
 
   const handleOptionChange = (index: number, value: string) => {
@@ -33,9 +36,25 @@ const CreateVote: React.FC = () => {
     setStartDate(date)
   }
 
-  const handleSubmit = () => {
-    // 투표 생성 로직 추가
-    console.log('투표 생성:', { title, options, startDate, endDate })
+  const navigate = useNavigate()
+
+  const handleSubmit = async () => {
+    if (!title || !options || !startDate || !endDate || !description) {
+      alert('필수값을 넣지 않았습니다.')
+      return
+    }
+
+    const params = {
+      title,
+      options: options.map((option) => ({ option })),
+      description,
+      startDate: startDate?.toISOString() || new Date().toISOString(),
+      endDate: endDate?.toISOString() || new Date().toISOString(),
+    }
+
+    const data = await createVote(params)
+
+    navigate(`/votes/${data._id}`)
   }
 
   return (
@@ -49,6 +68,13 @@ const CreateVote: React.FC = () => {
             label="투표 제목"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="투표 설명"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             fullWidth
             margin="normal"
           />

@@ -7,6 +7,7 @@ const request = async <T>(endpoint: string, options = {}): Promise<T> => {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     ...options,
   })
 
