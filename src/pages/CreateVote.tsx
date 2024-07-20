@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Card, CardContent, TextField, Button, Typography, IconButton } from '@mui/material'
 import { Delete } from '@mui/icons-material'
+import CustomDatePicker from '@/components/CustomDatePicker'
 
 const CreateVote: React.FC = () => {
   const [title, setTitle] = useState('')
@@ -67,11 +68,24 @@ const CreateVote: React.FC = () => {
                     color: 'primary.dark',
                   },
                 }}
+                disabled={options.length === 1}
               >
                 <Delete fontSize="small" />
               </IconButton>
             </Box>
           ))}
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '15px',
+              width: '100%',
+              justifyContent: 'space-between',
+            }}
+          >
+            <CustomDatePicker />
+            <CustomDatePicker />
+          </Box>
           <Button onClick={addOption} variant="outlined" sx={{ mt: 2, mr: 2 }}>
             옵션 추가
           </Button>
