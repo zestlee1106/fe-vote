@@ -27,7 +27,7 @@ const Home: React.FC = () => {
               <ListItem
                 button
                 component={Link}
-                to={`/vote/${vote._id}`}
+                to={`/votes/${vote._id}`}
                 key={vote._id}
                 sx={{
                   textAlign: 'center',
