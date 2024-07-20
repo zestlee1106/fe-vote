@@ -1,7 +1,7 @@
 import theme from '@/theme'
 import { Box, TextField } from '@mui/material'
 import { styled } from '@mui/system'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { ko } from 'date-fns/locale/ko'
