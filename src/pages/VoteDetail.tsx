@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Box, Card, CardContent, Typography, Radio, RadioGroup, FormControlLabel, Button } from '@mui/material'
 import { getVote } from '@/api/votes'
-import { Vote } from '@/types/votes'
+import { Vote } from '@/types/vote'
 
 const VoteDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()

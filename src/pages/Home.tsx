@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Box, Card, CardContent, Typography, List, ListItem, ListItemText } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { getAllVotes } from '@/api/votes'
-import { Vote } from '@/types/votes'
+import { Vote } from '@/types/vote'
 
 const Home: React.FC = () => {
   const [votes, setVotes] = useState<Vote[]>([])
