@@ -156,7 +156,7 @@ const CustomDatePicker = ({ placeholder, onChange, startDate, disabled }: DatePi
         onChange={handleDateChange}
         minDate={startDate}
         minTime={startDate}
-        maxTime={new Date(0, 0, 0, 23, 59, 59)}
+        maxTime={startDate ? new Date(0, 0, 0, 23, 59, 59) : undefined}
       />
     </Wrapper>
   )
