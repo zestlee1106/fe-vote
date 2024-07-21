@@ -1,10 +1,10 @@
-import { CreateVoteOptionParams } from './vote-option'
+import { CreateVoteOptionParams, VoteOption } from './vote-option'
 
 export interface Vote {
   _id: string
   title: string
   description: string
-  options: string[]
+  options: VoteOption[]
   startDate: string
   endDate: string
   createAt: string

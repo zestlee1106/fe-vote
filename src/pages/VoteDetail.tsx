@@ -36,12 +36,14 @@ const VoteDetail: React.FC = () => {
           <Typography variant="h4" gutterBottom>
             {vote?.title}
           </Typography>
+          <Typography variant="h6" gutterBottom>
+            {vote?.description}
+          </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <RadioGroup value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
-              {vote?.options.map((option, index) => (
-                <FormControlLabel key={`${option}-${index}`} value={option} control={<Radio />} label={option} />
+              {vote?.options.map((option) => (
+                <FormControlLabel key={option._id} value={option} control={<Radio />} label={option.option} />
               ))}
-              {/* 추가 옵션 */}
             </RadioGroup>
           </Box>
           <Button onClick={handleVote} variant="contained" color="primary" sx={{ mt: 2 }}>
