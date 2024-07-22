@@ -22,3 +22,11 @@ export interface CreateVoteParams {
   startDate: string
   endDate: string
 }
+
+export interface VoteResult {
+  _id: string
+  voteId: string
+  optionId: string
+  votedUuid: string
+  createAt: string
+}

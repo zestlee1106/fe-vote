@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Box, Card, CardContent, Typography, Radio, RadioGroup, FormControlLabel, Button } from '@mui/material'
-import { getVote } from '@/api/votes'
+import { createVoteResult, getVote } from '@/api/votes'
 import { Vote } from '@/types/vote'
 import { formatDate } from '@/utils/format'
+import { VoteOption } from '@/types/vote-option'
 
 const VoteDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
-  const [selectedOption, setSelectedOption] = React.useState('')
+  const [selectedOption, setSelectedOption] = useState<string>('')
   const [vote, setVote] = useState<Vote | null>(null)
   const navigate = useNavigate()
 
@@ -19,15 +20,20 @@ const VoteDetail: React.FC = () => {
     }
 
     setVote(data)
+    setSelectedOption(data.options[0]._id)
   }
 
   useEffect(() => {
     fetchVote()
   }, [])
 
-  const handleVote = () => {
-    // 투표 제출 로직 추가
-    console.log('투표:', selectedOption)
+  const handleVote = async () => {
+    try {
+      await createVoteResult(id || '', selectedOption)
+      // TODO: 투표 결과 페이지로 이동
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   return (
@@ -43,7 +49,7 @@ const VoteDetail: React.FC = () => {
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <RadioGroup value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
               {vote?.options.map((option) => (
-                <FormControlLabel key={option._id} value={option} control={<Radio />} label={option.option} />
+                <FormControlLabel key={option._id} value={option._id} control={<Radio />} label={option.option} />
               ))}
             </RadioGroup>
           </Box>
