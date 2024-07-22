@@ -25,7 +25,7 @@ export const getData = <T>(endpoint: string): Promise<T> => {
   })
 }
 
-export const postData = <T>(endpoint: string, data: unknown): Promise<T> => {
+export const postData = <T>(endpoint: string, data?: unknown): Promise<T> => {
   return request(endpoint, {
     method: 'POST',
     body: JSON.stringify(data),
