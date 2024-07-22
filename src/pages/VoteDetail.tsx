@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { Box, Card, CardContent, Typography, Radio, RadioGroup, FormControlLabel, Button } from '@mui/material'
 import { getVote } from '@/api/votes'
 import { Vote } from '@/types/vote'
+import { formatDate } from '@/utils/format'
 
 const VoteDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -45,6 +46,17 @@ const VoteDetail: React.FC = () => {
                 <FormControlLabel key={option._id} value={option} control={<Radio />} label={option.option} />
               ))}
             </RadioGroup>
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+              <Typography variant="body1">투표 시작 시간</Typography>
+              <Typography variant="body1">{formatDate(vote?.startDate)}</Typography>
+            </Box>
+            <Box>~</Box>
+            <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+              <Typography variant="body1">투표 마감 시간</Typography>
+              <Typography variant="body1">{formatDate(vote?.endDate)}</Typography>
+            </Box>
           </Box>
           <Button onClick={handleVote} variant="contained" color="primary" sx={{ mt: 2 }}>
             투표하기
