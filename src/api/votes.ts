@@ -1,4 +1,4 @@
-import { CreateVoteParams, Vote, VoteResult } from '@/types/vote'
+import { CreateVoteParams, Vote, VoteResult, VoteResultResponse } from '@/types/vote'
 import { getData, postData } from '.'
 
 export const getAllVotes = () => {
@@ -15,4 +15,8 @@ export const createVote = (params: CreateVoteParams) => {
 
 export const createVoteResult = (voteId: string, optionId: string) => {
   return postData<VoteResult>(`/votes/${voteId}/options/${optionId}`)
+}
+
+export const getVoteResult = (voteId: string) => {
+  return getData<VoteResultResponse>(`/votes/${voteId}/results`)
 }

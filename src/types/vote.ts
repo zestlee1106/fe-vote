@@ -30,3 +30,21 @@ export interface VoteResult {
   votedUuid: string
   createAt: string
 }
+
+interface OptionResponse extends VoteOption {
+  voteId: string
+  count: number
+}
+
+export interface VoteResultResponse {
+  _id: string
+  title: string
+  description: string
+  startDate: string
+  endDate: string
+  createAt: string
+  updatedAt: string
+  creatorIp: string
+  creatorUuid: string
+  options: OptionResponse[]
+}

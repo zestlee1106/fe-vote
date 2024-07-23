@@ -19,7 +19,7 @@ const App: React.FC = () => {
             <Route path="/" element={<Home />} />
             <Route path="/create-vote" element={<CreateVote />} />
             <Route path="/votes/:id" element={<VoteDetail />} />
-            <Route path="/results/:id" element={<VoteResults />} />
+            <Route path="/votes/:id/results" element={<VoteResults />} />
           </Routes>
         </div>
       </BrowserRouter>
