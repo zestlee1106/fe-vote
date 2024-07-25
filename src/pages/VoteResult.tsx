@@ -11,11 +11,15 @@ const VoteResults: React.FC = () => {
   const navigate = useNavigate()
 
   const fetchResult = async () => {
-    const data = await getVoteResult(id || '')
-    if (!data) {
-      return
+    try {
+      const data = await getVoteResult(id || '')
+      if (!data) {
+        return
+      }
+      setResult(data)
+    } catch (e) {
+      console.error(e)
     }
-    setResult(data)
   }
 
   useEffect(() => {

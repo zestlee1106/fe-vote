@@ -12,8 +12,13 @@ const request = async <T>(endpoint: string, options = {}): Promise<T> => {
   })
 
   if (!response.ok) {
-    const error = await response.json()
-    throw new Error(error.message)
+    const errorResponse = await response.json()
+    const error: ResponseError = {
+      error: errorResponse.error || 'Unknown Error',
+      message: errorResponse.message || 'An error occurred',
+      statusCode: response.status,
+    }
+    throw error
   }
 
   return response.json()
@@ -43,4 +48,15 @@ export const deleteData = <T>(endpoint: string): Promise<T> => {
   return request(endpoint, {
     method: 'DELETE',
   })
+}
+
+// export class ResponseError extends Error {
+//   statusCode: number
+
+// }
+
+export interface ResponseError {
+  error: string
+  message: string
+  statusCode: number
 }

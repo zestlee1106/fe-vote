@@ -4,7 +4,7 @@ import { Box, Card, CardContent, Typography, Radio, RadioGroup, FormControlLabel
 import { createVoteResult, getVote } from '@/api/votes'
 import { Vote } from '@/types/vote'
 import { formatDate } from '@/utils/format'
-import { VoteOption } from '@/types/vote-option'
+import { ResponseError } from '@/api'
 
 const VoteDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -13,14 +13,22 @@ const VoteDetail: React.FC = () => {
   const navigate = useNavigate()
 
   const fetchVote = async () => {
-    const data = await getVote(id || '')
+    try {
+      const data = await getVote(id || '')
 
-    if (!data) {
-      navigate('/')
+      if (!data) {
+        navigate('/')
+      }
+
+      setVote(data)
+      setSelectedOption(data.options[0]._id)
+    } catch (e) {
+      const error = e as ResponseError
+
+      if (error.statusCode === 409) {
+        navigate(`/votes/${id}/results`)
+      }
     }
-
-    setVote(data)
-    setSelectedOption(data.options[0]._id)
   }
 
   useEffect(() => {
@@ -30,7 +38,7 @@ const VoteDetail: React.FC = () => {
   const handleVote = async () => {
     try {
       await createVoteResult(id || '', selectedOption)
-      // TODO: 투표 결과 페이지로 이동
+      navigate(`/votes/${id}/results`)
     } catch (e) {
       console.error(e)
     }
