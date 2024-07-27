@@ -48,4 +48,6 @@ export interface VoteResultResponse {
   creatorIp: string
   creatorUuid: string
   options: OptionResponse[]
+  totalVoteCount: number
+  isDuplicateVotingAllowed: boolean
 }
