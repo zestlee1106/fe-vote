@@ -1,5 +1,16 @@
 import React, { useState } from 'react'
-import { Box, Card, CardContent, TextField, Button, Typography, IconButton } from '@mui/material'
+import {
+  Box,
+  Card,
+  CardContent,
+  TextField,
+  Button,
+  Typography,
+  IconButton,
+  RadioGroup,
+  Radio,
+  FormControlLabel,
+} from '@mui/material'
 import { Delete } from '@mui/icons-material'
 import CustomDatePicker from '@/components/CustomDatePicker'
 import theme from '@/theme'
@@ -10,6 +21,7 @@ const CreateVote: React.FC = () => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [options, setOptions] = useState(['', ''])
+  const [isDuplicateVotingAllowed, setIsDuplicateVotingAllowed] = useState(false)
 
   const handleOptionChange = (index: number, value: string) => {
     const newOptions = [...options]
@@ -38,6 +50,10 @@ const CreateVote: React.FC = () => {
 
   const navigate = useNavigate()
 
+  const handleChangeAllowed = () => {
+    setIsDuplicateVotingAllowed((prev) => !prev)
+  }
+
   const handleSubmit = async () => {
     if (!title || !options || !startDate || !endDate || !description) {
       alert('필수값을 넣지 않았습니다.')
@@ -50,6 +66,7 @@ const CreateVote: React.FC = () => {
       description,
       startDate: startDate?.toISOString() || new Date().toISOString(),
       endDate: endDate?.toISOString() || new Date().toISOString(),
+      isDuplicateVotingAllowed,
     }
 
     const data = await createVote(params)
@@ -111,6 +128,18 @@ const CreateVote: React.FC = () => {
               </IconButton>
             </Box>
           ))}
+          <Box
+            sx={{
+              display: 'flex',
+              width: '100%',
+              justifyContent: 'center',
+            }}
+          >
+            <RadioGroup row value={isDuplicateVotingAllowed} onChange={handleChangeAllowed}>
+              <FormControlLabel value={true} control={<Radio />} label="중복 투표 가능" />
+              <FormControlLabel value={false} control={<Radio />} label="중복 투표 불가" />
+            </RadioGroup>
+          </Box>
           <Box
             sx={{
               display: 'flex',
