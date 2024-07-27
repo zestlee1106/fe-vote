@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Box, Card, CardContent, Typography, Radio, RadioGroup, FormControlLabel, Button } from '@mui/material'
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  Button,
+  FormGroup,
+  Checkbox,
+} from '@mui/material'
 import { createVoteResult, getVote } from '@/api/votes'
 import { Vote } from '@/types/vote'
 import { formatDate } from '@/utils/format'
@@ -22,6 +33,10 @@ const VoteDetail: React.FC = () => {
 
       setVote(data)
       setSelectedOption(data.options[0]._id)
+
+      if (data.isDuplicateVotingAllowed) {
+        setCheckedOptions(new Array(data.options.length))
+      }
     } catch (e) {
       const error = e as ResponseError
 
@@ -44,6 +59,16 @@ const VoteDetail: React.FC = () => {
     }
   }
 
+  const [checkedOptions, setCheckedOptions] = useState<boolean[]>([])
+
+  const handleCheckboxChanged = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = event.target.checked
+    const newCheckedOptions = [...checkedOptions]
+    newCheckedOptions[index] = checked
+
+    setCheckedOptions(newCheckedOptions)
+  }
+
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
       <Card sx={{ maxWidth: 600, width: '100%' }} variant="outlined">
@@ -55,11 +80,24 @@ const VoteDetail: React.FC = () => {
             {vote?.description}
           </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <RadioGroup value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
-              {vote?.options.map((option) => (
-                <FormControlLabel key={option._id} value={option._id} control={<Radio />} label={option.option} />
-              ))}
-            </RadioGroup>
+            {!vote?.isDuplicateVotingAllowed && (
+              <RadioGroup value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
+                {vote?.options.map((option) => (
+                  <FormControlLabel key={option._id} value={option._id} control={<Radio />} label={option.option} />
+                ))}
+              </RadioGroup>
+            )}
+            {vote?.isDuplicateVotingAllowed && (
+              <FormGroup>
+                {vote?.options.map((option, index) => (
+                  <FormControlLabel
+                    key={option._id}
+                    control={<Checkbox onChange={handleCheckboxChanged(index)} />}
+                    label={option.option}
+                  />
+                ))}
+              </FormGroup>
+            )}
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>

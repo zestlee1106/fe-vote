@@ -13,6 +13,7 @@ export interface Vote {
   creatorIp: string
   creatorUuid: string
   votedCookieIds: string[]
+  isDuplicateVotingAllowed: boolean
 }
 
 export interface CreateVoteParams {
