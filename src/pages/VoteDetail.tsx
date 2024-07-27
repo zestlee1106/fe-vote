@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import {
   Box,
@@ -16,6 +16,7 @@ import { createVoteResult, getVote } from '@/api/votes'
 import { Vote } from '@/types/vote'
 import { formatDate } from '@/utils/format'
 import { ResponseError } from '@/api'
+import { VoteOption } from '@/types/vote-option'
 
 const VoteDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -41,7 +42,9 @@ const VoteDetail: React.FC = () => {
       const error = e as ResponseError
 
       if (error.statusCode === 409) {
-        navigate(`/votes/${id}/results`)
+        navigate(`/votes/${id}/results`, {
+          replace: true,
+        })
       }
     }
   }
@@ -52,14 +55,30 @@ const VoteDetail: React.FC = () => {
 
   const handleVote = async () => {
     try {
-      await createVoteResult(id || '', selectedOption)
-      navigate(`/votes/${id}/results`)
+      await createVoteResult(id || '', checkedOption)
+      navigate(`/votes/${id}/results`, {
+        replace: true,
+      })
     } catch (e) {
       console.error(e)
     }
   }
 
   const [checkedOptions, setCheckedOptions] = useState<boolean[]>([])
+  const checkedOption = useMemo(() => {
+    if (!vote?.isDuplicateVotingAllowed) {
+      return selectedOption
+    }
+
+    const selectedOptions: VoteOption[] = []
+    vote.options.map((option, index) => {
+      if (checkedOptions[index] === true) {
+        selectedOptions.push(option)
+      }
+    })
+
+    return selectedOptions.map((option) => option._id).join(',')
+  }, [checkedOptions, selectedOption])
 
   const handleCheckboxChanged = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.target.checked
