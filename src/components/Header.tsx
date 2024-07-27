@@ -19,8 +19,6 @@ const Header: React.FC = () => {
     },
   ]
 
-  const isCurrentTab = pathname
-
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
     navigate(tabs[newValue].path)
