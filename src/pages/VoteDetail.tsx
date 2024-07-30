@@ -46,6 +46,12 @@ const VoteDetail: React.FC = () => {
           replace: true,
         })
       }
+      if (error.statusCode === 403) {
+        alert('이미 마감된 투표입니다')
+        navigate(`/votes/${id}/results`, {
+          replace: true,
+        })
+      }
     }
   }
 
